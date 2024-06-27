@@ -1,0 +1,24 @@
+Concept: Download videos from youtube 
+	- download videos from playlists on profile
+		- only download new videos added to playlist since last run
+	
+	- download individual videos to specific folders
+
+Modules:
+	- pytube
+	- argv from sys : take arguments from commmand line ex. the link to the video to be downloaded
+
+Workflow:
+    - Pass argument index postion [1] from terminal 
+    - Assign parent directories
+    - check if url is to a playlist or video: Youtube urls currently contain "watch?" or "playlist?" to denote a video or playlist respectively
+    Playlists
+        - check for and create sub directory in parent dir with playlist title as directory name if not already existing
+        - store the names of any files that exist in the playlist directory
+        - iterate across pytube Playlist.vidoes object
+        - genreate file name with shared convention for each video: at this step replace any characters that are illegal for file names that are in viedo titles
+        - check if video from playlist shares a name that has been stored: skip download if a match is found
+        - save videos to [parent directory]\\[Playlist title]\\[[video title] from [channel name]]
+        - timeout after 60 seconds and move onto next video
+    Videos:
+        - 
