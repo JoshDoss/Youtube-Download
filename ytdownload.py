@@ -12,7 +12,7 @@ Basic Info:
 '''
 import os
 from sys import argv
-from pytube import YouTube, Playlist
+from pytubefix import YouTube, Playlist
 
 
 
@@ -78,13 +78,14 @@ def handle_video(link_to_video,parent_dir,subfolder):
         number_to_append_to_file_name = f'＊{library.count(video_file_name) + 1}＊'
         video_file_name += number_to_append_to_file_name
     print(video_file_name)
-    
+    # output_path=video_download_path,filename=video_file_name + '.mp4',timeout=60
     print(f'Downloading {video_file_name} ...')
     try:
-        video.streams.get_highest_resolution().download(output_path=video_download_path,filename=video_file_name + '.mp4',timeout=60)
+        video.streams.get_highest_resolution().download()
         print('Finished.')
     except Exception as err:
-        print(f'Error: {type(err)} caused a failure')
+        print(err)
+        print(type(err))
 
 def handle_playlist(link_to_playlist,parent_dir):
     '''
