@@ -62,8 +62,8 @@ def handle_video(link_to_video,parent_dir,subfolder):
     video = YouTube(link_to_video)
 
     if not subfolder:
-        subfolder = clean_filename(video.author)
         print(f'No subfolder specified, saving file to channel name subfolder: {video.author}')
+        subfolder = clean_filename(video.author)
         video_file_name = clean_filename(f'{video.title}')
     else:
         video_file_name = clean_filename(f'{video.title} from {video.author}')
@@ -78,10 +78,10 @@ def handle_video(link_to_video,parent_dir,subfolder):
         number_to_append_to_file_name = f'＊{library.count(video_file_name) + 1}＊'
         video_file_name += number_to_append_to_file_name
     print(video_file_name)
-    # output_path=video_download_path,filename=video_file_name + '.mp4',timeout=60
+    print(f'Saving files to {video_download_path}')
     print(f'Downloading {video_file_name} ...')
     try:
-        video.streams.get_highest_resolution().download()
+        video.streams.get_highest_resolution().download(output_path=video_download_path,filename=video_file_name + '.mp4',timeout=60)
         print('Finished.')
     except Exception as err:
         print(err)
@@ -138,7 +138,7 @@ def main(url = '',optional_subfolder = None):
     '''
     # set parent directories for download files 
     parent_dir_for_playlist_downloads = r'D:\Personal\Media\Music'
-    parent_dir_for_video_downloads = r'D:\Personal\Media\Youtube Videos'
+    parent_dir_for_video_downloads = r'D:\Personal\Media\Youtube Vault'
 
     # Currently YouTube uses 'playlist?' and 'watch?' to denote a playlist and video url respectively
     if 'playlist?' in url:
